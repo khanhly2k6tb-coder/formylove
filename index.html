@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sinh nhật anh yêu</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700&family=Patrick+Hand&family=Dancing+Script:wght@600;700&display=swap&subset=vietnamese">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+<button class="music" id="music" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 17.5a2.5 2.5 0 1 1-2-2.45V5.2l11-2.2v11.5a2.5 2.5 0 1 1-2-2.45V7.1L9 8.5z"/></svg><span id="music-label">Bật nhạc</span></button>
+
+<main>
+  <!-- ========== 1. MỞ ĐẦU ========== -->
+  <header class="hero">
+    <div class="wrap">
+      <div>
+        <div class="eyebrow" id="bday-date">26 tháng 11</div>
+        <h1>Chúc mừng sinh nhật,<br><span class="name" id="his-name"></span></h1>
+        <p class="lead" id="lead"></p>
+        <div class="love-timer" id="love-timer"></div>
+        <div class="stats">
+          <div class="stat"><b id="days">0</b><small>ngày bên nhau</small></div>
+          <div class="stat"><b id="trips">0</b><small>chuyến đi cùng nhau</small></div>
+          <div class="stat"><b id="age">0</b><small>tuổi mới của anh</small></div>
+        </div>
+        <button class="btn" id="gift" type="button">Mở quà nè</button>
+      </div>
+      <div class="mascot-stage">
+        <div class="bubble" id="bubble">Sinh nhật vui nha!</div>
+        <!-- MASCOT: nếu muốn dùng ảnh/GIF riêng, điền đường dẫn vào CONFIG.mascotImage bên dưới -->
+        <div class="couple">
+          <div class="mascot" id="mascot" role="button" tabindex="0" aria-label="Bé Mochi của anh, bấm để nghe bé nói"></div>
+          <div class="mascot her" id="mascot-her" aria-hidden="true"></div>
+          <svg class="love-heart" viewBox="0 0 24 24" aria-hidden="true"><path fill="#e05a86" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.6.7-1.4 2.2-2.6 4.3-2.6 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>
+        </div>
+        <div class="shadow"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== 2. KỶ NIỆM ========== -->
+  <section class="memories" id="memories">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">những nơi mình đã đi qua</span>
+        <h2>Album kỷ niệm</h2>
+        <p>Mỗi tấm ảnh là một lần mình cười đến mỏi miệng. Bấm vào ảnh để xem to hơn.</p>
+      </div>
+      <div class="board" id="board"></div>
+    </div>
+  </section>
+
+  <!-- ========== 2b. ĐIỀU EM THƯƠNG ========== -->
+  <section class="reasons" id="reasons">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">bấm vào từng trái tim nhé</span>
+        <h2>Những điều em thích ở anh</h2>
+      </div>
+      <div class="reason-grid" id="reason-grid"></div>
+    </div>
+  </section>
+
+  <!-- ========== 3. ĐỊA CẦU ========== -->
+  <section class="distance" id="distance">
+    <div class="wrap globe-grid">
+      <div class="globe-box" id="globe-box">
+        <canvas id="globe" aria-label="Quả địa cầu với đường bay từ Việt Nam tới Vương quốc Anh"></canvas>
+        <div class="hint">Kéo để xoay địa cầu</div>
+      </div>
+      <div>
+        <span class="eyebrow">từ em tới anh</span>
+        <h2>Xa mấy cũng chỉ là một chuyến bay</h2>
+        <div class="km" id="km" style="margin-top:18px">0 <small>km</small></div>
+        <div class="clocks">
+          <div class="clock"><div class="who">Em ở</div><div class="t" id="t-me">--:--</div><div class="city" id="c-me"></div></div>
+          <div class="clock"><div class="who">Anh ở</div><div class="t" id="t-him">--:--</div><div class="city" id="c-him"></div></div>
+        </div>
+        <p id="tz-note"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. BỨC THƯ ========== -->
+  <section class="letter-sec" id="letter">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">gửi anh, trước chuyến đi xa</span>
+        <h2>Một lá thư nhỏ</h2>
+      </div>
+      <p class="quote" id="quote"></p>
+      <div class="envelope" id="envelope">
+        <div class="env" id="env" role="button" tabindex="0" aria-label="Bấm để mở thư">
+          <div class="env-back"></div>
+          <div class="env-letter"><span>Gửi anh</span></div>
+          <div class="env-front"></div>
+          <div class="env-flap"></div>
+          <div class="env-seal"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.6.7-1.4 2.2-2.6 4.3-2.6 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></div>
+        </div>
+        <p class="env-hint" id="env-hint">Bấm vào phong thư để mở nhé</p>
+        <div class="letter-open" id="letter-open" hidden>
+        <div class="seal"><svg viewBox="0 0 24 24"><path fill="#fff" d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.6.7-1.4 2.2-2.6 4.3-2.6 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg></div>
+        <div class="paper" id="paper"></div>
+        <button type="button" class="refold" id="refold">Gấp thư lại</button>
+        </div>
+        <div class="peek" id="peek"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer><span class="forever" id="forever"></span>làm bằng cả trái tim, tặng anh</footer>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
